@@ -1,8 +1,22 @@
 #!/usr/bin/python3
 
 import csv
+import datetime
 import os
 import sys
+
+
+def pacific_to_eastern_time(timestamp):
+    date, time = timestamp.split(' ')
+    year, month, day = list(map(int, date.split('-')))
+    hours, minutes, seconds = list(map(int, time.split(':')))
+
+    datetime_object = datetime.datetime(
+        year=year, month=month, day=day, hour=hours, minute=minutes, second=seconds
+    )
+    datetime_object += datetime.timedelta(hours=3) # add 3 hours to get eastern time
+
+    return str(datetime_object)
 
 def format_date(date):
     """Convert date in to ISO-8601 format YYYY-MM-DD"""
@@ -30,7 +44,8 @@ def format_timestamp(timestamp):
     date, time, time_period = timestamp.split(' ')
     date = format_date(date)
     time = format_time(time, time_period)
-    return date + ' ' + time
+    formatted_timestamp = pacific_to_eastern_time(date + ' ' + time)
+    return formatted_timestamp
 
 def format_zip_code(zip_code):
     if len(zip_code) == 5:
