@@ -61,11 +61,11 @@ def is_csv_file(file):
     
 def normalize(input_file_name, output_file_name):
     if not is_csv_file(input_file_name) or not is_csv_file(output_file_name):
-        print("Please provide csv files as arguments!")
+        print('Please provide csv files as arguments!')
         return None
         
     if not os.path.isfile(input_file_name):
-        print("Please make sure your input file exists.")
+        print('Please make sure your input file exists.')
         return None
         
     column_header_names = [
