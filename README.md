@@ -48,8 +48,8 @@ Normalized, in this case, means:
   please convert it to US/Eastern.
 * ~~All `ZIP` codes should be formatted as 5 digits. If there are less
   than 5 digits, assume 0 as the prefix.~~
-* The `FullName` column should be converted to uppercase. There will be
-  non-English names.
+* ~~The `FullName` column should be converted to uppercase. There will be
+  non-English names.~~
 * The `Address` column should be passed through as is, except for
   Unicode validation. Please note there are commas in the Address
   field; your CSV parsing will need to take that into account. Commas

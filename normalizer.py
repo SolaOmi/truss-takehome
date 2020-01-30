@@ -38,7 +38,7 @@ def normalize(input_file_name, output_file_name):
             'Timestamp': row['Timestamp'],
             'Address': row['Address'],
             'ZIP': format_zip_code(row['ZIP']),
-            'FullName': row['FullName'],
+            'FullName': row['FullName'].upper(),
             'FooDuration': row['FooDuration'],
             'BarDuration': row['BarDuration'],
             'TotalDuration': row['TotalDuration'],
