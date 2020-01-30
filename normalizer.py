@@ -4,6 +4,33 @@ import csv
 import os
 import sys
 
+def format_date(date):
+    """Convert date in to ISO-8601 format YYYY-MM-DD"""
+
+    month, day, year = date.split('/')
+    year = '20' + year # Assume the we're in the 21st century for year.
+    month = month if len(month) == 2 else month.rjust(2, '0')
+    day = day if len(day) == 2 else day.rjust(2, '0')
+    return year + '-' + month + '-' + day
+
+def format_time(time, time_period):
+    """Convert time in to ISO-8601 format hh:mm:ss in 24-hour clock system"""
+
+    hours, minutes, seconds = time.split(':')
+    if time_period == 'AM' and hours == '12':
+        return '00:' + minutes + ':' + seconds
+    elif time_period == 'AM':
+        return time
+    elif time_period == 'PM' and hours == '12':
+        return time
+    else:
+        return str(int(hours) + 12) + ':' + minutes + ':' + seconds
+
+def format_timestamp(timestamp):
+    date, time, time_period = timestamp.split(' ')
+    date = format_date(date)
+    time = format_time(time, time_period)
+    return date + ' ' + time
 
 def format_zip_code(zip_code):
     if len(zip_code) == 5:
@@ -43,7 +70,7 @@ def normalize(input_file_name, output_file_name):
         total_duration = converted_foo_duration + converted_bar_duration
 
         output_file_writer.writerow({
-            'Timestamp': row['Timestamp'],
+            'Timestamp': format_timestamp(row['Timestamp']),
             'Address': row['Address'],
             'ZIP': format_zip_code(row['ZIP']),
             'FullName': row['FullName'].upper(),
