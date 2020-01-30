@@ -10,6 +10,10 @@ def format_zip_code(zip_code):
         return zip_code
     return zip_code.rjust(5, '0')
 
+def convert_time_to_seconds(time):
+    hours, minutes, seconds = time.split(':')
+    return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
+
 def is_csv_file(file):
     return file.endswith('csv')
     
@@ -34,14 +38,18 @@ def normalize(input_file_name, output_file_name):
 
     output_file_writer.writeheader()
     for row in input_file_reader:
+        converted_foo_duration = convert_time_to_seconds(row['FooDuration'])
+        converted_bar_duration = convert_time_to_seconds(row['BarDuration'])
+        total_duration = converted_foo_duration + converted_bar_duration
+
         output_file_writer.writerow({
             'Timestamp': row['Timestamp'],
             'Address': row['Address'],
             'ZIP': format_zip_code(row['ZIP']),
             'FullName': row['FullName'].upper(),
-            'FooDuration': row['FooDuration'],
-            'BarDuration': row['BarDuration'],
-            'TotalDuration': row['TotalDuration'],
+            'FooDuration': converted_foo_duration,
+            'BarDuration': converted_bar_duration,
+            'TotalDuration': total_duration,
             'Notes': row['Notes']
         })
 
