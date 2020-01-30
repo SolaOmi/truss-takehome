@@ -5,6 +5,11 @@ import os
 import sys
 
 
+def format_zip_code(zip_code):
+    if len(zip_code) == 5:
+        return zip_code
+    return zip_code.rjust(5, '0')
+
 def is_csv_file(file):
     return file.endswith('csv')
     
@@ -31,7 +36,7 @@ def normalize(input_file_name, output_file_name):
         output_file_writer.writerow({
             'Timestamp': row['Timestamp'],
             'Address': row['Address'],
-            'ZIP': row['ZIP'],
+            'ZIP': format_zip_code(row['ZIP']),
             'FullName': row['FullName'],
             'FooDuration': row['FooDuration'],
             'BarDuration': row['BarDuration'],
