@@ -17,15 +17,29 @@ def normalize(input_file_name, output_file_name):
         print("Please make sure your input file exists.")
         return None
         
-    input_file = open(input_file_name)
-    header_names = [
+    column_header_names = [
         'Timestamp', 'Address', 'ZIP', 'FullName', 'FooDuration', 'BarDuration',
         'TotalDuration', 'Notes'
     ]
-    input_file_reader = csv.DictReader(input_file, header_names)
     
+    input_file = open(input_file_name)
+    input_file_reader = csv.DictReader(input_file, column_header_names)
+    output_file = open(output_file_name, 'w', newline='')
+    output_file_writer = csv.DictWriter(output_file, column_header_names)
+
     for row in input_file_reader:
-        print(row['Timestamp'], row['Address'], row['ZIP'])
+        output_file_writer.writerow({
+            'Timestamp': row['Timestamp'],
+            'Address': row['Address'],
+            'ZIP': row['ZIP'],
+            'FullName': row['FullName'],
+            'FooDuration': row['FooDuration'],
+            'BarDuration': row['BarDuration'],
+            'TotalDuration': row['TotalDuration'],
+            'Notes': row['Notes']
+        })
+
+    output_file.close()
     
     
 normalize(sys.argv[1], sys.argv[2])
