@@ -28,10 +28,11 @@ def normalize(input_file_name, output_file_name):
     ]
     
     input_file = open(input_file_name)
-    input_file_reader = csv.DictReader(input_file, column_header_names)
+    input_file_reader = csv.DictReader(input_file)
     output_file = open(output_file_name, 'w', newline='')
     output_file_writer = csv.DictWriter(output_file, column_header_names)
 
+    output_file_writer.writeheader()
     for row in input_file_reader:
         output_file_writer.writerow({
             'Timestamp': row['Timestamp'],
