@@ -73,7 +73,7 @@ def normalize(input_file_name, output_file_name):
         'TotalDuration', 'Notes'
     ]
     
-    input_file = open(input_file_name)
+    input_file = open(input_file_name, encoding='utf8', errors='replace')
     input_file_reader = csv.DictReader(input_file)
     output_file = open(output_file_name, 'w', newline='')
     output_file_writer = csv.DictWriter(output_file, column_header_names)
